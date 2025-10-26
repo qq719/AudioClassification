@@ -28,3 +28,4 @@ torchsummary==1.5.1
 torchvision==0.24.0+cu126
 triton==3.5.0
 typing_extensions==4.15.0
+tqdm==4.66.4
