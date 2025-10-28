@@ -4,3 +4,6 @@
 # Virtual env
 .venv
 myenv/
+
+# Model
+drone_classifier.pty

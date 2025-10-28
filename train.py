@@ -6,10 +6,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
-from main import Model, get_device
+from model import Model
 
 # CONFIG
-DATA_DIR = "./png_data"
+DATA_DIR = "../WavPreprocessing/png_data"
 MODEL_PATH = "./drone_classifier.pth"
 BATCH_SIZE = 32
 EPOCHS = 10
@@ -87,7 +87,7 @@ def evaluate(model, test_loader, criterion, device):
     return epoch_loss, epoch_acc
 
 def main():
-    device = get_device()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[*] Using device: {device}")
 
     # Initialize model

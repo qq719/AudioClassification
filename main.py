@@ -1,105 +1,30 @@
 import torch
 import torch.nn as nn
-import numpy as np
-from torchsummary import summary
-
-class Model(nn.Module):
-    def __init__(self, num_classes=10):
-        super(Model, self).__init__()
-        self.layer1 = nn.Sequential(
-            nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(16),
-            nn.ReLU())
-        self.layer2 = nn.Sequential(
-            nn.Conv2d(16, 16, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(16),
-            nn.ReLU(), 
-            nn.MaxPool2d(kernel_size = 2, stride = 2))
-        self.layer3 = nn.Sequential(
-            nn.Conv2d(16, 32, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(32),
-            nn.ReLU())
-        self.layer4 = nn.Sequential(
-            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size = 2, stride = 2))
-        self.layer5 = nn.Sequential(
-            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(32),
-            nn.ReLU())
-        self.layer6 = nn.Sequential(
-            nn.Conv2d(32, 48, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(48),
-            nn.ReLU())
-        self.layer7 = nn.Sequential(
-            nn.Conv2d(48, 48, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(48),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size = 2, stride = 2))
-        self.layer8 = nn.Sequential(
-            nn.Conv2d(48, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU())
-        self.layer9 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU())
-        self.layer10 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size = 2, stride = 2))
-        self.layer11 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU())
-        self.layer12 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU())
-        self.layer13 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size = 2, stride = 2))
-        self.fc = nn.Sequential(
-            nn.Dropout(0.5),
-            nn.Linear(15*31*64, 4096),
-            nn.ReLU())
-        self.fc1 = nn.Sequential(
-            nn.Dropout(0.5),
-            nn.Linear(4096, 4096),
-            nn.ReLU())
-        self.fc2= nn.Sequential(
-            nn.Linear(4096, num_classes))
-        
-    def forward(self, x):
-        out = self.layer1(x)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
-        out = self.layer5(out)
-        out = self.layer6(out)
-        out = self.layer7(out)
-        out = self.layer8(out)
-        out = self.layer9(out)
-        out = self.layer10(out)
-        out = self.layer11(out)
-        out = self.layer12(out)
-        out = self.layer13(out)
-        out = out.reshape(out.size(0), -1)
-        out = self.fc(out)
-        out = self.fc1(out)
-        out = self.fc2(out)
-        return out
-
-def get_device():
-    return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+from train import MODEL_PATH, BATCH_SIZE, IMG_SIZE, DATA_DIR, NUM_CLASSES, evaluate, get_data_loaders
+from model import Model
+from tqdm import tqdm
 
 def main():
-    model = Model()
-    print(summary(model, input_size=(3,1000,500)))
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    transform = transforms.Compose([
+        transforms.Resize(IMG_SIZE),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                             std=[0.229, 0.224, 0.225])
+    ])
+    dataset = datasets.ImageFolder(DATA_DIR, transform=transform)
+    test_loader = DataLoader(dataset, batch_size = BATCH_SIZE, shuffle = False, num_workers = 4)
+    
+    model = Model(NUM_CLASSES)
+    model.to(device)
+    state_dict = torch.load(MODEL_PATH)
+    model.load_state_dict(state_dict)
+    test_loss, test_acc = evaluate(model, test_loader, nn.CrossEntropyLoss(), device)
+
+    print(f"Test Loss:  {test_loss:.4f} | Test Acc:  {test_acc*100:.2f}%")
+    
 if (__name__ == "__main__"):
     main()
