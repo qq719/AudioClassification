@@ -1,4 +1,5 @@
 import os
+import math
 import random
 from tqdm import tqdm
 import torch
@@ -7,11 +8,13 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
 from model import Model
+from sklearn.model_selection import KFold
 
 # CONFIG
 DATA_DIR = "../WavPreprocessing/png_data"
 MODEL_PATH = "./drone_classifier.pth"
-BATCH_SIZE = 32
+BATCH_SIZE = 16
+K_FOLDS = 5
 EPOCHS = 10
 LEARNING_RATE = 1e-4
 SEED = 42
@@ -20,27 +23,6 @@ NUM_CLASSES = 2         # drone / no drone
 
 torch.manual_seed(SEED)
 random.seed(SEED)
-
-def get_data_loaders():
-    transform = transforms.Compose([
-        transforms.Resize(IMG_SIZE),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225])
-    ])
-
-    dataset = datasets.ImageFolder(DATA_DIR, transform=transform)
-
-    total_size = len(dataset)
-    test_size = total_size // 2
-    train_size = total_size - test_size
-    train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
-
-    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
-    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
-
-    print(f"[*] Training samples: {len(train_dataset)} | Testing samples: {len(test_dataset)}")
-    return train_loader, test_loader
 
 def train(model, train_loader, criterion, optimizer, device):
     model.train()
@@ -93,27 +75,58 @@ def main():
     # Initialize model
     model = Model(num_classes=NUM_CLASSES).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    
+    # Setup dataset and kfolds
+    kf = KFold(n_splits = K_FOLDS, shuffle = True)
+    transform = transforms.Compose([
+        transforms.Resize(IMG_SIZE),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                             std=[0.229, 0.224, 0.225])
+    ])
 
-    train_loader, test_loader = get_data_loaders()
+    dataset = datasets.ImageFolder(DATA_DIR, transform=transform)
+    test_size = math.floor(len(dataset) * 0.9)
+    train_size = len(dataset) - test_size
+    train_dataset, test_dataset = random_split(datasets.ImageFolder(DATA_DIR, transform=transform), [train_size, test_size])
 
     best_acc = 0.0
-    for epoch in range(EPOCHS):
-        print(f"\nEpoch {epoch+1}/{EPOCHS}")
+    for fold, (train_idx, val_idx) in enumerate(kf.split(train_dataset)):
+        print(f"[*] Fold: {fold+1}")
+        print("----------------------")
 
-        train_loss, train_acc = train(model, train_loader, criterion, optimizer, device)
-        test_loss, test_acc = evaluate(model, test_loader, criterion, device)
+        # Get the train and validation sets
+        train_subset = torch.utils.data.Subset(train_dataset, train_idx)
+        val_subset = torch.utils.data.Subset(train_dataset, val_idx)
+        train_loader = DataLoader(dataset = train_subset,
+                                  batch_size = BATCH_SIZE,
+                                  shuffle = True,
+                                  num_workers=4)
+        val_loader = DataLoader(dataset = val_subset,
+                                batch_size = BATCH_SIZE,
+                                shuffle = False,
+                                num_workers=4)
 
-        print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc*100:.2f}%")
-        print(f"Test Loss:  {test_loss:.4f} | Test Acc:  {test_acc*100:.2f}%")
+        # Start with a fresh model each fold
+        model = Model(num_classes = NUM_CLASSES).to(device)
+        optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+        
+        for epoch in range(EPOCHS):
+            print(f"\nEpoch {epoch+1}/{EPOCHS}")
 
-        # Save best model
-        if test_acc > best_acc:
-            torch.save(model.state_dict(), MODEL_PATH)
-            best_acc = test_acc
-            print(f"[+] Saved new best model ({best_acc*100:.2f}%) to {MODEL_PATH}")
+            train_loss, train_acc = train(model, train_loader, criterion, optimizer, device)
+            val_loss, val_acc = evaluate(model, val_loader, criterion, device)
+
+            print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc*100:.2f}%")
+            print(f"Val Loss:  {val_loss:.4f} | Val Acc:  {val_acc*100:.2f}%")
+
+            # Save best model
+            if val_acc > best_acc:
+                torch.save(model.state_dict(), MODEL_PATH)
+                best_acc = val_acc
+                print(f"[+] Saved new best model ({best_acc*100:.2f}%) to {MODEL_PATH}")
 
     print(f"[*] Training complete. Best test accuracy: {best_acc*100:.2f}%")
-
+    
 if __name__ == "__main__":
     main()

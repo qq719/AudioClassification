@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
+from torchinfo import summary
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-from train import MODEL_PATH, BATCH_SIZE, IMG_SIZE, DATA_DIR, NUM_CLASSES, get_data_loaders
+from train import MODEL_PATH, BATCH_SIZE, IMG_SIZE, DATA_DIR, NUM_CLASSES
 from model import Model
 from tqdm import tqdm
 

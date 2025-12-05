@@ -6,4 +6,4 @@
 myenv/
 
 # Model
-drone_classifier.pty
+drone_classifier.pth

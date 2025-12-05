@@ -1,0 +1,228 @@
+[*] Using device: cuda
+[*] Fold: 1
+----------------------
+
+Epoch 1/10
+Train Loss: 0.0474 | Train Acc: 98.79%                                                                                                                                                                                                      
+Val Loss:  0.0139 | Val Acc:  99.58%
+[+] Saved new best model (99.58%) to ./drone_classifier.pth
+
+Epoch 2/10
+Train Loss: 0.0182 | Train Acc: 99.58%                                                                                                                                                                                                      
+Val Loss:  0.0137 | Val Acc:  99.61%
+[+] Saved new best model (99.61%) to ./drone_classifier.pth
+
+Epoch 3/10
+Train Loss: 0.0190 | Train Acc: 99.46%                                                                                                                                                                                                      
+Val Loss:  0.0260 | Val Acc:  99.42%
+
+Epoch 4/10
+Train Loss: 0.0164 | Train Acc: 99.58%                                                                                                                                                                                                      
+Val Loss:  0.0146 | Val Acc:  99.61%
+
+Epoch 5/10
+Train Loss: 0.0140 | Train Acc: 99.63%                                                                                                                                                                                                      
+Val Loss:  0.0143 | Val Acc:  99.56%
+
+Epoch 6/10
+Train Loss: 0.0097 | Train Acc: 99.73%                                                                                                                                                                                                      
+Val Loss:  0.0242 | Val Acc:  99.64%
+[+] Saved new best model (99.64%) to ./drone_classifier.pth
+
+Epoch 7/10
+Train Loss: 0.0111 | Train Acc: 99.71%                                                                                                                                                                                                      
+Val Loss:  0.0184 | Val Acc:  99.58%
+
+Epoch 8/10
+Train Loss: 0.0120 | Train Acc: 99.65%                                                                                                                                                                                                      
+Val Loss:  0.0161 | Val Acc:  99.56%
+
+Epoch 9/10
+Train Loss: 0.0105 | Train Acc: 99.72%                                                                                                                                                                                                      
+Val Loss:  0.0161 | Val Acc:  99.64%
+
+Epoch 10/10
+Train Loss: 0.0107 | Train Acc: 99.72%                                                                                                                                                                                                      
+Val Loss:  0.0127 | Val Acc:  99.72%
+[+] Saved new best model (99.72%) to ./drone_classifier.pth
+[*] Fold: 2
+----------------------
+
+Epoch 1/10
+Train Loss: 0.0412 | Train Acc: 99.00%                                                                                                                                                                                                      
+Val Loss:  0.0253 | Val Acc:  99.58%
+
+Epoch 2/10
+Train Loss: 0.0256 | Train Acc: 99.36%                                                                                                                                                                                                      
+Val Loss:  0.0648 | Val Acc:  96.34%
+
+Epoch 3/10
+Train Loss: 0.0179 | Train Acc: 99.49%                                                                                                                                                                                                      
+Val Loss:  0.0194 | Val Acc:  99.28%
+
+Epoch 4/10
+Train Loss: 0.0168 | Train Acc: 99.47%                                                                                                                                                                                                      
+Val Loss:  0.0097 | Val Acc:  99.64%
+
+Epoch 5/10
+Train Loss: 0.0154 | Train Acc: 99.54%                                                                                                                                                                                                      
+Val Loss:  0.0143 | Val Acc:  99.42%
+
+Epoch 6/10
+Train Loss: 0.0103 | Train Acc: 99.71%                                                                                                                                                                                                      
+Val Loss:  0.0120 | Val Acc:  99.70%
+
+Epoch 7/10
+Train Loss: 0.0133 | Train Acc: 99.66%                                                                                                                                                                                                      
+Val Loss:  0.0094 | Val Acc:  99.67%
+
+Epoch 8/10
+Train Loss: 0.0116 | Train Acc: 99.66%                                                                                                                                                                                                      
+Val Loss:  0.0064 | Val Acc:  99.78%
+[+] Saved new best model (99.78%) to ./drone_classifier.pth
+
+Epoch 9/10
+Train Loss: 0.0105 | Train Acc: 99.69%                                                                                                                                                                                                      
+Val Loss:  0.0089 | Val Acc:  99.86%
+[+] Saved new best model (99.86%) to ./drone_classifier.pth
+
+Epoch 10/10
+Train Loss: 0.0126 | Train Acc: 99.72%                                                                                                                                                                                                      
+Val Loss:  0.0077 | Val Acc:  99.81%
+[*] Fold: 3
+----------------------
+
+Epoch 1/10
+Train Loss: 0.0483 | Train Acc: 98.79%                                                                                                                                                                                                      
+Val Loss:  0.0244 | Val Acc:  99.14%
+
+Epoch 2/10
+Train Loss: 0.0282 | Train Acc: 99.25%                                                                                                                                                                                                      
+Val Loss:  0.0181 | Val Acc:  99.42%
+
+Epoch 3/10
+Train Loss: 0.0175 | Train Acc: 99.54%                                                                                                                                                                                                      
+Val Loss:  0.0232 | Val Acc:  99.36%
+
+Epoch 4/10
+Train Loss: 0.0157 | Train Acc: 99.53%                                                                                                                                                                                                      
+Val Loss:  0.0380 | Val Acc:  99.31%
+
+Epoch 5/10
+Train Loss: 0.0157 | Train Acc: 99.54%                                                                                                                                                                                                      
+Val Loss:  0.0135 | Val Acc:  99.69%
+
+Epoch 6/10
+Train Loss: 0.0135 | Train Acc: 99.61%                                                                                                                                                                                                      
+Val Loss:  0.0157 | Val Acc:  99.64%
+
+Epoch 7/10
+Train Loss: 0.0128 | Train Acc: 99.65%                                                                                                                                                                                                      
+Val Loss:  0.0337 | Val Acc:  99.56%
+
+Epoch 8/10
+Train Loss: 0.0157 | Train Acc: 99.61%                                                                                                                                                                                                      
+Val Loss:  0.0237 | Val Acc:  99.36%
+
+Epoch 9/10
+Train Loss: 0.0166 | Train Acc: 99.60%                                                                                                                                                                                                      
+Val Loss:  0.0166 | Val Acc:  99.69%
+
+Epoch 10/10
+Train Loss: 0.0128 | Train Acc: 99.72%                                                                                                                                                                                                      
+Val Loss:  0.0290 | Val Acc:  99.03%
+[*] Fold: 4
+----------------------
+
+Epoch 1/10
+Train Loss: 0.0518 | Train Acc: 98.61%                                                                                                                                                                                                      
+Val Loss:  0.0198 | Val Acc:  99.22%
+
+Epoch 2/10
+Train Loss: 0.0264 | Train Acc: 99.37%                                                                                                                                                                                                      
+Val Loss:  0.0288 | Val Acc:  99.25%
+
+Epoch 3/10
+Train Loss: 0.0265 | Train Acc: 99.37%                                                                                                                                                                                                      
+Val Loss:  0.0087 | Val Acc:  99.81%
+
+Epoch 4/10
+Train Loss: 0.0156 | Train Acc: 99.60%                                                                                                                                                                                                      
+Val Loss:  0.0070 | Val Acc:  99.81%
+
+Epoch 5/10
+Train Loss: 0.0133 | Train Acc: 99.62%                                                                                                                                                                                                      
+Val Loss:  0.0076 | Val Acc:  99.86%
+
+Epoch 6/10
+Train Loss: 0.0131 | Train Acc: 99.60%                                                                                                                                                                                                      
+Val Loss:  0.0076 | Val Acc:  99.78%
+
+Epoch 7/10
+Train Loss: 0.0141 | Train Acc: 99.66%                                                                                                                                                                                                      
+Val Loss:  0.0071 | Val Acc:  99.81%
+
+Epoch 8/10
+Train Loss: 0.0114 | Train Acc: 99.71%                                                                                                                                                                                                      
+Val Loss:  0.0090 | Val Acc:  99.83%
+
+Epoch 9/10
+Train Loss: 0.0143 | Train Acc: 99.62%                                                                                                                                                                                                      
+Val Loss:  0.0083 | Val Acc:  99.72%
+
+Epoch 10/10
+Train Loss: 0.0137 | Train Acc: 99.62%                                                                                                                                                                                                      
+Val Loss:  0.0091 | Val Acc:  99.83%
+[*] Fold: 5
+----------------------
+
+Epoch 1/10
+Train Loss: 0.0509 | Train Acc: 98.83%                                                                                                                                                                                                      
+Val Loss:  0.0157 | Val Acc:  99.61%
+
+Epoch 2/10
+Train Loss: 0.0234 | Train Acc: 99.53%                                                                                                                                                                                                      
+Val Loss:  0.0141 | Val Acc:  99.56%
+
+Epoch 3/10
+Train Loss: 0.0159 | Train Acc: 99.62%                                                                                                                                                                                                      
+Val Loss:  0.0101 | Val Acc:  99.69%
+
+Epoch 4/10
+Train Loss: 0.0166 | Train Acc: 99.57%                                                                                                                                                                                                      
+Val Loss:  0.0096 | Val Acc:  99.69%
+
+Epoch 5/10
+Train Loss: 0.0141 | Train Acc: 99.69%                                                                                                                                                                                                      
+Val Loss:  0.0369 | Val Acc:  98.81%
+
+Epoch 6/10
+Train Loss: 0.0157 | Train Acc: 99.66%                                                                                                                                                                                                      
+Val Loss:  0.0086 | Val Acc:  99.69%
+
+Epoch 7/10
+Train Loss: 0.0129 | Train Acc: 99.68%                                                                                                                                                                                                      
+Val Loss:  0.0068 | Val Acc:  99.72%
+
+Epoch 8/10
+Train Loss: 0.0127 | Train Acc: 99.68%                                                                                                                                                                                                      
+Val Loss:  0.0079 | Val Acc:  99.78%
+
+Epoch 9/10
+Train Loss: 0.0122 | Train Acc: 99.72%                                                                                                                                                                                                      
+Val Loss:  0.0144 | Val Acc:  99.58%
+
+Epoch 10/10
+Train Loss: 0.0195 | Train Acc: 99.54%                                                                                                                                                                                                      
+Val Loss:  0.0096 | Val Acc:  99.72%
+[*] Training complete. Best test accuracy: 99.86%
+
+
+
+
+
+[*] Loss = 0.0116                                                                                                                                                                                                                           
+[*] Accuracy = 99.75%
+[*] Precision = 0.9914
+[*] Recall = 0.9914
+[*] F1 = 0.9914
